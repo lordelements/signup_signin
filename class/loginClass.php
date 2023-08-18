@@ -1,41 +1,54 @@
 <?php
     // session_start();
     class loginClass extends config{
-        
+                
+            public function validate_input($data) {
+                    
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                $data = $this->conn->real_escape_string($data);
+                return $data;
+            }
+
             public function login() {
             
-                $email = $this->conn->real_escape_string($_POST['email']);
-                $password = $this->conn->real_escape_string($_POST['password']);
+                $username = $this->validate_input($_POST['username']);
+                $password = $this->validate_input($_POST['password']);
 
-                $sql = "SELECT * FROM user WHERE email='$email' AND password='$password' LIMIT 1";
+                $sql = "SELECT * FROM user WHERE username='$username' AND password='$password' LIMIT 1";
                 $user = $this->conn->query($sql);
 
-                // var_dump($user);
-                
-                if (mysqli_num_rows($user) == 1) {  
-                    $rows  = mysqli_fetch_assoc($user);
-                    if ($rows ['usertype'] == 'administrator') {
-                        $_SESSION['user'] = $rows;
-                        $_SESSION['success']  = "Welcome to Admin Dashboard";
-                        header('location: index.php');		  
+                    if (mysqli_num_rows($user) == 1) {  
+                        $rows  = mysqli_fetch_assoc($user);
+                        if ($rows ['usertype'] == 'administrator') {
+                            $_SESSION['user'] = $rows;
+                            $_SESSION['status'] = "Good job";
+                            $_SESSION['status_text'] = "Welcome to admin Dashboard.";
+                            $_SESSION['status_code'] = "success";
+                            
+                            $_SESSION['usertype'] = $rows['usertype'];
+                            $_SESSION['username'] = $rows['username'];
+		                    $_SESSION['password'] = $rows['password'];
+                            header('location: admin/index.php');		  
+                        }
+                        else if ($rows ['usertype'] == 'staff') {
+                            $_SESSION['user'] = $rows;
+                            $_SESSION['status'] = "Good job";
+                            $_SESSION['status_text'] = "Welcome to user dashboard";
+                            $_SESSION['status_code'] = "success";
+                            
+                            $_SESSION['usertype'] = $rows['usertype'];
+                            $_SESSION['username'] = $rows['username'];
+		                    $_SESSION['password'] = $rows['password'];
+                            header("Location:  index.php");		  
+                        }
+                       else {
+                        $_SESSION['status_text'] = "Username or Password is wrong";
+                       }
+                        
                     }
-                    if ($rows ['usertype'] == 'staff') {
-                        $_SESSION['user'] = $rows;
-                        $_SESSION['success']  = "Welcome to user dashboard";
-                        header("Location: userindex.php");		  
-                    }
-                    if ($rows (empty($email))) {
-                        $_SESSION['user'] = $rows;
-                        $_SESSION['success']  = "email is required";
-                        header('location: login.php');		
-                    }
-                    if ($rows (empty($password))) {
-                        $_SESSION['user'] = $rows;
-                        $_SESSION['success']  = "Password is required";
-                        header('location: login.php');		
-                    }
-                    
-                }
+               
         }
     }
 

@@ -1,22 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 :root {
-    --bg-color: #000;
-    --txt-color: #FFFFE8;
+    --bg-color: #00000000;
+    --default-bg-color: #DCD7C9;
+    --txt-color: #000;
     --default-font: ;
     --box-shadow-color: 0 5px 9px rgba(0, 0, 0, 0.90);
     --border-radius: 4px;
     --border-color: #0A6EBD;
     --btn-bg-color: #0A6EBD;
-    --txt-shadow: 2px 2px 5px black, 0 0 30px blue, 0 0 5px darkblue;
+    --txt-shadow: 2px 2px 5px black, 0 0 30px rgb(79, 122, 241), 0 0 5px rgb(86, 86, 228);
 }
 *{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body {
     font-family: 'Lato', sans-serif;
-    background-color: #DCD7C9;
+    background-color: var(--default-bg-color);
+    /* background-image: url('../img/bg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh; */
+    /* backdrop-filter: 300px;
+    filter: blur(300);
+    opacity: .9; */
 }
-
+/* .overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    background-color: rgba(0, 255, 136, 0.726);
+    mix-blend-mode: overlay;
+    z-index: -1;
+    backdrop-filter: 300px;
+    filter: blur(300);
+    opacity: .9;
+    object-fit: inherit;
+  } */
 .card {
     box-shadow: var(--box-shadow-color);
     background-color: var(--bg-color);
@@ -28,7 +52,7 @@ body {
     padding: 1rem;
     max-width: 30rem;
     text-decoration: none;
-    height: 710px;
+    /* height: 690px; */
     margin-top: 70px;
     overflow: hidden;
     z-index: -1;
@@ -51,7 +75,6 @@ body {
 }
 .card .title{
     float: left;
-    text-shadow: var(--txt-shadow);
     color: var(--txt-color);
     font-weight: 500;
     margin: 4px auto;
@@ -64,13 +87,14 @@ body {
     box-shadow: var(--border-color);
     border-color: var(--border-color);
     background-color: var(--bg-color);
-    text-shadow: var(--txt-shadow);
     color: var(--txt-color);
-    font-weight: 300;
+    font-weight: 500;
     margin: 5px auto;
     padding: 10px;
     max-width: 50rem;
     width: 100%;
+    outline: transparent;
+    overflow: hidden;
 }
 .profile-img input {
     font: inherit;
@@ -79,8 +103,9 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--border-color);
     border-color: var(--border-color);
-    background-color: var(--bg-color);
-    text-shadow: var(--txt-shadow);
+    background-color: transparent;
+    overflow: hidden;
+    outline: invert;
     color: var(--txt-color);
     font-weight: 300;
     margin: 5px auto;
@@ -109,6 +134,15 @@ body {
     background-color: var(--bg-color);
     font: inherit;
     cursor: pointer;
+    text-shadow: var(--txt-shadow);
+    box-shadow: var(--box-shadow-color);
+}
+.input-group input:hover{
+    background-color: var(--bg-color);
+    font: inherit;
+    cursor: pointer;
+    box-shadow: var(--box-shadow-color);
+    transition: 1s all ease-in-out;
 }
 .show-pass-btn {
     float: left;
@@ -121,4 +155,5 @@ body {
 }
 .signin-here {
     text-align: left;
+    padding: 3px;
 }
